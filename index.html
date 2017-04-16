@@ -7,7 +7,7 @@
 		<title>reveal.js</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -24,8 +24,23 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h2>Architekturen von Single Page Applications (SPA)</h2>
+					<p>
+						<small>Dr. Sven Jörges</small>
+					</p>
+				</section>
+
+				<section data-background="assets/location-pin.png" data-background-size=20% data-state="opaque">
+					<h2>Bevor wir beginnen...</h2>
+					<p>"SPA?"</p>
+					<p>Frameworks?</p>
+				</section>
+
+				<section>
+					<h2>Fragen und Diskussion</h2>
+					<h3>Danke für Ihre Aufmerksamkeit!</h3>
+				</section>
 			</div>
 		</div>
 
@@ -36,6 +51,33 @@
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 				history: true,
+				// Display a presentation progress bar
+				progress: true,
+
+				// Display the page number of the current slide
+				slideNumber: true,
+
+				transition: 'slide',
+
+				pdfMaxPagesPerSlide: 1,
+
+				//center: false,
+
+				// The "normal" size of the presentation, aspect ratio will be preserved
+				// when the presentation is scaled to fit different resolutions. Can be
+				// specified using percentage units.
+				//width: 960,
+				//height: 700,
+				// settings for PDF export:
+				//width: 1024,
+				//height: 768,
+
+				// Factor of the display size that should remain empty around the content
+				margin: 0.1,
+
+				// Bounds for smallest/largest possible scale to apply to content
+				minScale: 0.2,
+				maxScale: 1.5,
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
@@ -45,6 +87,58 @@
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
+		</script>
+
+		<style type="text/css">
+		    /* 1. Style header/footer <div> so they are positioned as desired. */
+		    #header-left {
+		        position: absolute;
+		        top: 0%;
+		        left: 0%;
+		        text-align: start;
+		    }
+		    #header-left img {
+		        width: 30%;
+		    }
+		    #header-right {
+		        position: absolute;
+		        top: 0%;
+		        right: 0%;
+		    }
+		    #footer-left {
+		        position: absolute;
+		        bottom: 2%;
+		        left: 0.5%;
+		        font-size: medium;
+		        color: #a6a6a6;
+		    }
+		    html.opaque .slide-background {
+				opacity: 0.4 !important; 
+			}
+			.reveal section img { background:none; border:none; box-shadow:none; }
+		</style>
+
+		<!-- 2. Create hidden header/footer <div> -->
+		<div id="hidden" style="display:none;">
+		    <div id="header">
+		        <!--div id="header-left">HEADER-LEFT</div-->
+		        <!--div id="header-right">HEADER-RIGHT</div-->
+		        <div id="footer-left">Architekturen von Single Page Applications, Sven Jörges, 24.04.2017</div>
+		    </div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+		<script type="text/javascript">
+		    // 3. On Reveal.js ready event, copy header/footer <div> into each `.slide-background` <div>
+		    var header = $('#header').html();
+		    if ( window.location.search.match( /print-pdf/gi ) ) {
+		        Reveal.addEventListener( 'ready', function( event ) {
+		            $('.slide-background').append(header);
+		        });
+		    }
+		    else {
+		        $('div.reveal').append(header);
+		   }
 		</script>
 	</body>
 </html>
