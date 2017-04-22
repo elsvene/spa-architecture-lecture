@@ -34,12 +34,324 @@
 				<section data-background="assets/location-pin.png" data-background-size=20% data-state="opaque">
 					<h2>Bevor wir beginnen...</h2>
 					<p>"SPA?"</p>
-					<p>Frameworks?</p>
+				</section>
+
+				<section data-transition="none">
+					<h2>Aufbau</h2>
+					<ol>
+						<li>Was sind SPAs?</li>
+						<li>Architekturmuster: Model-View-Controller</li>
+						<li>Zusammenfassung</li>
+					</ol>
+				</section>
+
+				<section data-transition="none">
+					<h2>Aufbau</h2>
+					<ol>
+						<li><strong>Was sind SPAs?</strong></li>
+						<li>Architekturmuster: Model-View-Controller</li>
+						<li>Zusammenfassung</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Single Page Applications (SPA)</h2>
+					<blockquote>
+						&ldquo;An SPA is an application delivered to the browser that doesn't reload the page during use.&rdquo; </br><em><small>M. Mikowski, J. Powell: Single Page Web Applications</small></em>
+					</blockquote>
+				</section>
+
+				<section>
+					<h3>SPAs: Ziele</h3>
+					<ul>
+					   	<li class="fragment">Bedienkomfort und Reaktionszeit von Desktop-Applikationen auch im Web (z.B. Office-Anwendungen)</li>
+						<li class="fragment">Offline-Fähigkeit (insbesondere bei mobiler Nutzung)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>SPA-Beispiele: Google Docs</h3>
+					<img src="assets/google-docs.png" />
+				</section>
+
+				<section>
+					<h3>SPA-Beispiele: Diese Präsentation</h3>
+					<img src="assets/thispresentation.png" width="70%"/>
+					<p><a href="https://elsvene.github.io/spa-architecture-lecture">https://elsvene.github.io/spa-architecture-lecture</a></p>
+				</section>
+
+				<section>
+					<h2>Klassische Web-Applikationen</h2>
+					<ul>
+						<li>Ursprünglich wurde das WWW zum entfernten Austausch von Dokumenten ("Ressourcen") konzipiert</li>
+						<li>Verlinkungen zwischen den Dokumenten</li>
+						<li>Request-Response-Zyklus zwischen Client und Server</li> 
+					</ul>
+					<p class="fragment">&rarr; im Folgenden: "Multi Page Applications (MPA)"
+				</section>
+
+				<section data-transition="none">
+					<h3>Multi Page Applications</h3>
+					<p><img src="assets/traditionalWebApplication-6.png" width=70%/></p>
+				</section>
+
+				<section data-transition="none">
+					<h3>Multi Page Applications</h3>
+					<p><img src="assets/traditionalWebApplication-7.png" width=70%/></p>
+				</section>
+
+				<section data-transition="none">
+					<section>
+						<h3>Multi Page Applications</h3>
+						<p><img src="assets/traditionalWebApplication-8.png" width=80%/></p>
+					</section>
+
+					<section>
+						<h3>MPAs: Eigenschaften</h3>	
+						<ul>
+							<li>Benutzeraktionen führen zu Client-Server-Kommunikation mit Neuladen der Webseite</li>
+							<li class="fragment">Synchronität: Benutzer wartet zwischen Anfrage und Antwort</li>
+						</ul>
+					</section>
+				</section>
+
+				<section data-transition="none">
+					<h3>Single Page Applications</h3>
+					<p><img src="assets/singlePageApplication.png" width=70%/></p>
+				</section>
+
+				<section data-transition="none">
+					<h3>Single Page Applications</h3>
+					<p><img src="assets/singlePageApplication-2.png" width=70%/></p>
+				</section>
+
+				<section>
+					<section data-transition="none">
+						<h3>Single Page Applications</h3>
+						<p><img src="assets/singlePageApplication-3.png" width=70%/></p>
+					</section>
+
+					<section>
+						<h3>SPAs: Eigenschaften</h3>	
+						<ul>
+							<li>"initial load" lädt komplette Applikation</li>
+							<li class="fragment">danach kein Neuladen der Seite mehr (Änderung der Darstellung über DOM-Manipulation)</li>
+							<li class="fragment">Serverkommunikation nur noch zum Laden von Daten bzw. Ausführen von Geschäftslogik (AJAX)</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section data-transition="none">
+						<img src="assets/mpaVsSpa.png" width=85%/>
+					</section>
+
+					<section>
+						<h3>MPAs: Rolle des Servers</h3>	
+						Thin Client: Hauptarbeit liegt beim Server, z.B.
+						<ul>
+							<li>Auffinden/Erzeugen und Ausliefern der HTML-Seite (inkl. CSS, Skripte etc.)</li>
+							<li>Navigation und Routing von URLs</li>
+						</ul> 
+					</section>
+
+					<section>
+						<h3>SPAs: Rolle des Servers</h3>
+						<ul>
+							<li>Rich bzw. Fat Client: klassische Aufgaben des Servers wandern in den Client</li>
+							<li>Implementierung des Clientanteils in Javascript</li>
+							<li>Kommunikation mit dem Server lediglich zum Datenaustausch (z.B. mittels AJAX, Websockets)</li>
+							<li>Kompletter Applikationszustand wird im Client verwaltet</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>SPAs: Zentrale Herausforderung</h3>
+						<img src="assets/spaClient.png" width="30%" style="float:left;">
+						<p>&nbsp;</p>
+						<p>Entstehende Komplexität beherrschen!</p>
+						<p>(Wartbarkeit, Anpassbarkeit, etc.)</p>
+						<p><strong>&rarr; Architekturmuster</strong><p/>
+					</section>
+
+					<section>
+						<h3>SPAs: Weitere Herausforderungen</h3>
+						<ul>
+							<li>erster Aufruf (<em>Initial Load</em>) teuer, da gesamte Applikation geladen wird</li>
+							<li>JavaScript als Programmiersprache</li>
+							<li>Unterschiede in den Browser-Implementierungen</li>
+							<li>Lesezeichen im Browser</li>
+							<li>Vor- und Zurück-Funktionen des Browsers</li>
+							<li>Search Engine Optimization (SEO)</li>
+							<li>...</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Aufbau</h2>
+					<ol>
+						<li>Was sind SPAs?</li>
+						<li><strong>Architekturmuster: Model-View-Controller</strong></li>
+						<li>Zusammenfassung</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Model-View-Controller (MVC)</h3>
+					<ul>
+						<li>Muster zur Strukturierung der Präsentationsschicht</li>
+						<li>Ziele:
+							<ul>
+								<li>Trennung von Zuständigkeiten</li>
+								<li>Anpassbarkeit und Erweiterbarkeit</li>
+								<li>Wiederverwendbarkeit (z.B. gleiches Model für andere Controller und Views)</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="none">
+					<h3>MVC: Überblick (Komponenten)</h3>
+					<p><img src="assets/modelviewcontroller-aufgaben.png"/></p>
+				</section>
+
+				<section data-transition="none">
+					<h3>MVC: Überblick (Kommunikation)</h3>
+					<p><img src="assets/modelviewcontroller-exercise.png"/></p>
+				</section>
+
+				<section  data-transition="none">
+					<section data-transition="none">
+						<h3>MVC: Überblick (Kommunikation)</h3>
+						<p><img src="assets/modelviewcontroller.png"/></p>
+					</section>
+
+					<section data-transition="none">
+						<h3>MVC: Model</h3>
+						<img src="assets/modelviewcontroller-3.png" style="float:left;" width="50%">
+						<p>&nbsp;</p>
+						<ul style="width: 40%">
+							<li>Datenmodell für die Oberfläche</li>
+							<li>Informiert View über Änderungen</li>
+							<li>Aufruf von Geschäftslogik</li>
+						</ul>
+					</section>
+
+					<section data-transition="none">
+						<h3>MVC: View</h3>
+						<img src="assets/modelviewcontroller-3.png" style="float:left;" width="50%">
+						<p>&nbsp;</p>
+						<ul style="width: 45%">
+							<li>Darstellung der Oberfläche</li>
+							<li>Weitergabe von Ereignissen an den Controller</li>
+							<li>Anwenden von Änderungen im Model</li>
+						</ul>
+					</section>
+
+					<section data-transition="none">
+						<h3>MVC: Controller</h3>
+						<img src="assets/modelviewcontroller-3.png" style="float:left;" width="50%">
+						<p>&nbsp;</p>
+						<ul style="width: 40%">
+							<li>Auswertung von Ereignissen und Durchführen entsprechender Aktionen</li>
+							<li>Ablaufsteuerung</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h3>MVC bei SPAs</h3>
+					<img src="assets/spaMvc.png" style="float:left;" width="37%">
+					<p>&nbsp;</p>
+					<ul style="width: 50%">
+						<li>clientseitige Anwendung von MVC</li>
+						<li>viele Views, Controller und Models (z.B. strukturiert nach Fachobjekten, Anwendungsfunktionen)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>MVC-Beispiel</h3>
+					<img src="assets/mini-mvc.png" />
+					<p><a href="https://github.com/elsvene/minimal-todo-js-mvc">https://github.com/elsvene/minimal-todo-js-mvc</a></p>
+				</section>
+
+				<section>
+					<section>
+						<h3>SPAs: Frameworks</h3>
+						<p>z.B.: Ember, Backbone, Angular, React, Knockout, Meteor, Elm, Vue...</p>
+					</section>
+
+					<section>
+						<h3>SPAs: Frameworks</h3>
+						<ul>
+							<li>geben Rahmen und Architekturmuster vor</li>
+							<li>setzen MVC selten in Reinform um, zumeist Varianten des Musters</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h3>MV<sup>*</sup></h3>
+					<ul>
+						<li>weitere Varianten, z.B. Model-View-Viewmodel (MVVM), Model-View-Presenter (MVP)</li>
+						<li class="fragment">Beispiele verschiedener MV<sup>*</sup>-Lösungen anhand einer ToDo-App: <a href="https://todomvc.com">todomvc.com</a>
+					</ul>
+				</section>			
+
+				<section>
+					<h2>Aufbau</h2>
+					<ol>
+						<li>Was sind SPAs?</li>
+						<li>Architekturmuster: Model-View-Controller</li>
+						<li><strong>Zusammenfassung</strong></li>
+					</ol>
+				</section>			
+
+				<section>
+					<h3>Was haben wir gesehen? (1)</h3>
+					<strong>Single Page Applications:</strong>
+					<ul>
+						<li>nur eine Seite, kein Seitenneuaufbau</li>
+						<li>verlagern Aufgaben vom Server in den Client</li>
+						<li>Code kann sehr komplex werden &rarr; Architekturmuster helfen</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Was haben wir gesehen? (2)</h3>
+					<strong>Beispiel für MV<sup>*</sup>-Ansätze:</strong>
+					<ul>
+						<li>Model-View-Controller (MVC)</li>
+						<li>Umsetzungen in SPA-Frameworks: <a href="https://todomvc.com">todomvc.com</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Was haben wir nicht gesehen?</h3>
+					<ul>
+						<li>Unidirektionale Architekturen (z.B. Flux)</li>
+						<li>Funktionale Reaktive Programmierung</li>
+						<li>...</li>
+					</ul>
 				</section>
 
 				<section>
 					<h2>Fragen und Diskussion</h2>
 					<h3>Danke für Ihre Aufmerksamkeit!</h3>
+					<p>&nbsp;</p>
+					<p><small>Folien: <a href="https://elsvene.github.io/spa-architecture-lecture">https://elsvene.github.io/spa-architecture-lecture</a></small></p>
+					<p><small>MVC-Beispiel: <a href="https://github.com/elsvene/minimal-todo-js-mvc">https://github.com/elsvene/minimal-todo-js-mvc</a></small></p>
+				</section>
+
+				<section>
+					<h3>Literatur</h3>
+					<p><small>M. Mikowski, J. Powell. <em>Single Page Web Applications: JavaScript end-to-end</em>, Manning, 2013</small></p>
+					<p><small>H. Spindler. <em>Single-Page-Web-Apps</em>, Franzis Verlag, 2014</small></p>
+					<p><small>H. Balzert. <em>Lehrbuch der Softwaretechnik: Entwurf, Implementierung, Installation und Betrieb</em>, Spektrum, 2011</small></p>
+					<p><small>D. Crockford. <em>JavaScript: The Good Parts</em>, O'Reilly, 2008</small></p>
 				</section>
 			</div>
 		</div>
